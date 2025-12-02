@@ -1,14 +1,20 @@
 fn main() {
-    print!("{}", std::fs::read_to_string("01/input.txt").unwrap().lines().fold((50, 0), |(p, c), l| {
-        let v: i32 = l[1..].parse().unwrap();
-        let d = l.as_bytes()[0] == b'R';
-        
-        let dest = if d { p + v } else { p - v };
-        let laps = if d {
-            dest.div_euclid(100) - p.div_euclid(100)
-        } else {
-            (p - 1).div_euclid(100) - (dest - 1).div_euclid(100)
-        };
-        (dest.rem_euclid(100), c + laps)
-    }).1);
+    print!(
+        "{}", 
+        std::fs::read_to_string("01/input.txt")
+        .unwrap()
+        .lines()
+        .fold((50, 0), |(p, c), l| {
+            let v: i32 = l[1..].parse().unwrap();
+            let d = l.as_bytes()[0] == b'R';
+            
+            let dest = if d { p + v } else { p - v };
+            let laps = if d {
+                dest.div_euclid(100) - p.div_euclid(100)
+            } else {
+                (p - 1).div_euclid(100) - (dest - 1).div_euclid(100)
+            };
+            (dest.rem_euclid(100), c + laps)
+        }).1
+    );
 }
