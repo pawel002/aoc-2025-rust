@@ -1,7 +1,7 @@
 fn main() {
     println!(
         "{}",
-        std::fs::read_to_string("input.txt")
+        std::fs::read_to_string("02/input.txt")
             .unwrap()
             .trim()
             .split(',')
@@ -9,7 +9,7 @@ fn main() {
             .flat_map(|(a, b)| a.parse::<u64>().unwrap()..=b.parse::<u64>().unwrap())
             .filter(|x| {
                 let s = x.to_string();
-                s.len() % 2 == 0 && s[..s.len() / 2] == s[s.len() / 2..]
+                (1..=s.len() / 2).any(|i| s.len() % i == 0 && s == s[..i].repeat(s.len() / i))
             })
             .sum::<u64>()
     );
